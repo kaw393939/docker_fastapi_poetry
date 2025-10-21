@@ -55,9 +55,10 @@ COPY pyproject.toml poetry.lock* ./
 # Install Dependencies
 # --no-interaction: Don't ask for user input (required in automated builds)
 # --no-ansi: Disable colored output (cleaner logs)
+# --no-root: Don't install the project itself, just dependencies
 # This layer is cached unless pyproject.toml or poetry.lock changes
 # Meaning: If you only change app code, dependencies aren't reinstalled!
-RUN poetry install --no-interaction --no-ansi
+RUN poetry install --no-interaction --no-ansi --no-root
 
 # Copy Application Code
 # Copy everything from current directory (.) to /app in container
