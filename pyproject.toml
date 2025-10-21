@@ -75,6 +75,11 @@ httpx = "^0.25.1"
 # Required if you have async endpoints
 pytest-asyncio = "^0.21.1"
 
+# pytest-cov: Code coverage plugin for pytest
+# Measures which lines of code are executed during tests
+# Helps identify untested code
+pytest-cov = "^4.1.0"
+
 # Build System Configuration
 # Tells pip and other tools how to build this project
 [build-system]
