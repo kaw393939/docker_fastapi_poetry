@@ -1,0 +1,120 @@
+# pyproject.toml - Modern Python Project Configuration
+#
+# This file replaces the old setup.py, requirements.txt, and setup.cfg files.
+# It's defined by PEP 518 and used by Poetry for dependency management.
+#
+# Key Sections:
+# - [tool.poetry]: Project metadata (name, version, description)
+# - [tool.poetry.dependencies]: Production dependencies
+# - [tool.poetry.group.dev.dependencies]: Development-only dependencies
+# - [build-system]: How to build the project (Poetry uses poetry-core)
+#
+# Poetry Commands:
+# - poetry install              : Install all dependencies
+# - poetry add <package>        : Add production dependency
+# - poetry add --group dev <pkg>: Add dev dependency
+# - poetry remove <package>     : Remove dependency
+# - poetry update               : Update dependencies to latest versions
+# - poetry lock                 : Update poetry.lock file
+# - poetry show                 : List installed packages
+# - poetry run <command>        : Run command in virtual environment
+
+[tool.poetry]
+# Project name (used for package identification)
+name = "fastapi-app"
+
+# Semantic versioning: MAJOR.MINOR.PATCH
+# - MAJOR: Breaking changes
+# - MINOR: New features (backward compatible)
+# - PATCH: Bug fixes
+version = "0.1.0"
+
+# Short project description
+description = "A Hello World FastAPI application"
+
+# Project maintainers
+authors = ["Your Name <your.email@example.com>"]
+
+# README file to display on PyPI (if publishing)
+readme = "README.md"
+
+# Package mode false means we're not building a distributable package
+# We're just managing dependencies for an application
+package-mode = false
+
+# Production Dependencies
+# These are installed in both development and production environments
+[tool.poetry.dependencies]
+# Python version constraint
+# ^3.11 means: >=3.11.0, <4.0.0 (allows minor/patch updates, not major)
+python = "^3.11"
+
+# FastAPI: Modern web framework for building APIs
+# ^0.104.1 means: >=0.104.1, <0.105.0
+fastapi = "^0.104.1"
+
+# Uvicorn: ASGI web server for running FastAPI
+# extras = ["standard"]: Includes extra features like:
+# - uvloop: Faster event loop
+# - httptools: Faster HTTP parsing
+# - websockets: WebSocket support
+# - watchfiles: File change detection for --reload
+uvicorn = {extras = ["standard"], version = "^0.24.0"}
+
+# Development Dependencies
+# These are ONLY installed in development, not in production
+# Keeps production images smaller and more secure
+[tool.poetry.group.dev.dependencies]
+# pytest: Testing framework
+# ^7.4.3 ensures we get bug fixes but no breaking changes
+pytest = "^7.4.3"
+
+# httpx: HTTP client library
+# Required by FastAPI's TestClient for making test requests
+# Think of it as 'requests' but with async support
+httpx = "^0.25.1"
+
+# pytest-asyncio: Plugin for testing async code
+# Allows using 'async def' in test functions
+# Required if you have async endpoints
+pytest-asyncio = "^0.21.1"
+
+# Build System Configuration
+# Tells pip and other tools how to build this project
+[build-system]
+# Packages required to build this project
+requires = ["poetry-core"]
+
+# Build backend to use (Poetry's build system)
+build-backend = "poetry.core.masonry.api"
+
+# Additional Configuration Examples (Commented Out)
+
+# [tool.poetry.scripts]
+# # Define command-line scripts
+# start = "uvicorn app.main:app"
+# # Run with: poetry run start
+
+# [tool.pytest.ini_options]
+# # pytest configuration
+# testpaths = ["tests"]
+# python_files = ["test_*.py"]
+# python_functions = ["test_*"]
+# addopts = "-v --cov=app"
+
+# [tool.black]
+# # Black code formatter configuration
+# line-length = 88
+# target-version = ['py311']
+
+# [tool.mypy]
+# # MyPy type checker configuration
+# python_version = "3.11"
+# warn_return_any = true
+# warn_unused_configs = true
+
+# [tool.ruff]
+# # Ruff linter configuration
+# line-length = 88
+# select = ["E", "F", "W"]
+

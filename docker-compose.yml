@@ -1,0 +1,87 @@
+# Docker Compose Configuration
+# 
+# Docker Compose allows you to define and run multi-container Docker applications.
+# This file defines all services, networks, and volumes for your application stack.
+# 
+# Key Concepts:
+# - Service: A container definition (web server, database, cache, etc.)
+# - Volume: Persistent data storage or file sharing between host and container
+# - Network: Communication channels between services (auto-created)
+# - Environment: Variables passed to containers
+# 
+# Common Commands:
+# - docker-compose up       : Start all services
+# - docker-compose up -d    : Start in background (detached)
+# - docker-compose down     : Stop and remove containers
+# - docker-compose logs     : View output from containers
+# - docker-compose build    : Rebuild service images
+
+services:
+  # Web Service Definition
+  # This defines our FastAPI application container
+  web:
+    # Build Configuration
+    # Tells Docker to build an image from the Dockerfile in current directory
+    build: .
+    
+    # Port Mapping
+    # Format: "HOST_PORT:CONTAINER_PORT"
+    # Maps port 8001 on your machine to port 8000 inside the container
+    # Access the API at: http://localhost:8001
+    ports:
+      - "8001:8000"
+    
+    # Volume Mounts
+    # Volumes share files between your computer and the container
+    volumes:
+      # Mount current directory (.) to /app in container
+      # This enables HOT RELOADING - changes to code instantly reflect in container
+      # Without this, you'd need to rebuild the image for every code change
+      - .:/app
+      
+      # Prevent overwriting Python virtual environment
+      # This anonymous volume prevents the host from overwriting the container's
+      # poetry virtual environment, ensuring dependencies remain intact
+      - /app/.venv
+    
+    # Environment Variables
+    # Variables passed to the container at runtime
+    environment:
+      # PYTHONUNBUFFERED=1 ensures Python output appears immediately in logs
+      # Without this, Python buffers output which can delay log visibility
+      - PYTHONUNBUFFERED=1
+    
+    # Command Override
+    # Overrides the CMD instruction in Dockerfile
+    # Runs uvicorn with these flags:
+    # - app.main:app    : Python module and FastAPI instance
+    # - --host 0.0.0.0  : Listen on all network interfaces (required for Docker)
+    # - --port 8000     : Port inside container
+    # - --reload        : Auto-restart server when code changes (DEV ONLY!)
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+# Example: Adding More Services
+# Uncomment and modify to add database, cache, etc.
+#
+#   # PostgreSQL Database
+#   db:
+#     image: postgres:15
+#     environment:
+#       POSTGRES_DB: myapp
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: password
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#
+#   # Redis Cache
+#   redis:
+#     image: redis:7-alpine
+#     ports:
+#       - "6379:6379"
+#
+# # Define named volumes (persist data between container restarts)
+# volumes:
+#   postgres_data:
+
