@@ -38,10 +38,6 @@ authors = ["Your Name <your.email@example.com>"]
 # README file to display on PyPI (if publishing)
 readme = "README.md"
 
-# Package mode false means we're not building a distributable package
-# We're just managing dependencies for an application
-package-mode = false
-
 # Production Dependencies
 # These are installed in both development and production environments
 [tool.poetry.dependencies]
