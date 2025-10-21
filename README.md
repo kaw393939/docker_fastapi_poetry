@@ -274,6 +274,74 @@ source ~/.zshrc
 
 ---
 
+## 🐳 Docker Hub & Deployment
+
+### Publishing to Docker Hub
+
+Share your Docker images with the world! Docker Hub is a cloud registry for Docker images - like GitHub but for containers.
+
+**Quick start:**
+```bash
+# Log in to Docker Hub
+docker login
+
+# Build and tag your image
+docker build -t YOUR_USERNAME/docker_fastapi_poetry:latest .
+
+# Push to Docker Hub
+docker push YOUR_USERNAME/docker_fastapi_poetry:latest
+```
+
+**📖 Complete Guide:** [Publishing to Docker Hub](docs/guides/docker-hub.md)
+
+**What you'll learn:**
+- Creating Docker Hub account and repositories
+- Access tokens for security
+- Tagging strategies (latest, v1.0.0, stable)
+- Pushing and pulling images
+- Best practices and troubleshooting
+
+---
+
+## 🚀 CI/CD with GitHub Actions
+
+### Automated Testing & Deployment
+
+This project includes a complete CI/CD pipeline that automatically:
+- ✅ **Runs tests** on every push and pull request
+- 📊 **Generates coverage reports** to ensure code quality
+- 🐳 **Builds Docker images** when tests pass
+- 📦 **Pushes to Docker Hub** for easy deployment
+
+**How it works:**
+```
+git push → Tests Run → ✅ Pass → Build Docker → Push to Hub
+                     ↓
+                     ❌ Fail → Stop (prevents broken code)
+```
+
+**Setup in 5 minutes:**
+1. Create Docker Hub access token
+2. Add secrets to GitHub (DOCKERHUB_USERNAME, DOCKERHUB_TOKEN)
+3. Push to main branch
+4. Watch automation in action! 🎉
+
+**📖 Complete Guide:** [GitHub Actions CI/CD Setup](docs/guides/github-actions.md)
+
+**What you'll learn:**
+- Understanding CI/CD concepts
+- GitHub Actions workflow explained
+- Setting up secrets and tokens
+- Monitoring workflow execution
+- Troubleshooting common issues
+- Customizing for your needs
+
+---
+
+## 📖 External Resources
+
+---
+
 ## � Docker Hub Setup & Publishing
 
 ### What is Docker Hub?
