@@ -31,11 +31,11 @@ client = TestClient(app)
 def test_read_root():
     """
     Test the root endpoint (GET /).
-    
+
     This test verifies that:
     1. The endpoint responds with HTTP 200 (OK)
     2. The response contains the expected JSON message
-    
+
     Testing Pattern (AAA):
     - Arrange: Set up test client (done globally above)
     - Act: Make GET request to root endpoint
@@ -44,11 +44,11 @@ def test_read_root():
     # Act: Make a GET request to the root endpoint
     # This simulates: curl http://localhost:8001/
     response = client.get("/")
-    
+
     # Assert: Verify the HTTP status code is 200 (OK)
     # Status codes: 200=Success, 404=Not Found, 500=Server Error, etc.
     assert response.status_code == 200
-    
+
     # Assert: Verify the JSON response matches expected structure
     # .json() parses the response body as JSON
     assert response.json() == {"message": "Hello World"}
@@ -57,21 +57,21 @@ def test_read_root():
 def test_health_check():
     """
     Test the health check endpoint (GET /health).
-    
+
     Health checks are critical for:
     - Kubernetes liveness/readiness probes
     - Load balancer health monitoring
     - Alerting systems
     - Service mesh routing decisions
-    
+
     This test ensures the health endpoint always returns a healthy status.
     """
     # Act: Make a GET request to the health endpoint
     response = client.get("/health")
-    
+
     # Assert: Verify successful response
     assert response.status_code == 200
-    
+
     # Assert: Verify health status is "healthy"
     assert response.json() == {"status": "healthy"}
 
@@ -113,7 +113,7 @@ def test_health_check():
 # Advanced Testing Patterns
 
 # import pytest
-# 
+#
 # @pytest.fixture
 # def sample_data():
 #     """
@@ -121,7 +121,7 @@ def test_health_check():
 #     Automatically passed to tests that request it.
 #     """
 #     return {"name": "Test", "value": 123}
-# 
+#
 # def test_with_fixture(sample_data):
 #     """Test using fixture data."""
 #     assert sample_data["name"] == "Test"

@@ -2,7 +2,8 @@
 FastAPI Application - Main Entry Point
 
 This module defines the FastAPI application instance and all API routes.
-FastAPI automatically generates interactive API documentation at /docs and /redoc.
+FastAPI automatically generates interactive API documentation at
+/docs and /redoc.
 
 Key Concepts:
 - FastAPI: Modern Python web framework for building APIs
@@ -17,9 +18,9 @@ from fastapi import FastAPI
 # Create the FastAPI application instance
 # This is the main object that handles all routing and middleware
 app = FastAPI(
-    title="Hello World API",           # Appears in /docs
-    version="1.0.0",                    # API version
-    description="A simple FastAPI demo" # Appears in /docs
+    title="Hello World API",  # Appears in /docs
+    version="1.0.0",  # API version
+    description="A simple FastAPI demo"  # Appears in /docs
 )
 
 
@@ -35,13 +36,14 @@ async def root():
     
     Returns:
         dict: A JSON object with a message field
-        
+
     Example Response:
         {"message": "Hello World"}
-        
+
     Note:
         - 'async def' makes this an asynchronous function (non-blocking)
-        - Even though we don't use 'await' here, async is good practice for APIs
+        - Even though we don't use 'await' here, async is good
+          practice for APIs
         - FastAPI automatically converts the dict to JSON
     """
     return {"message": "Hello World"}
@@ -95,11 +97,11 @@ async def health_check():
 #     return {"query": q}
 
 # from pydantic import BaseModel
-# 
+#
 # class Item(BaseModel):
 #     name: str
 #     price: float
-# 
+#
 # @app.post("/items")
 # async def create_item(item: Item):
 #     """
